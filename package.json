@@ -5,16 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
     "build-frontend": "tsc -b && vite build",
     "build-server": "tsc -p ./srcServer/tsconfig.json",
+    "lint": "eslint .",
+    "preview": "vite preview",
     "start-server": "node --env-file ./.env  ./distServer/server.js",
     "restart-server": "clear && npm run build-server && npm run start-server",
     "predeploy": "npm run build-frontend && npm run build-server"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.987.0",
+    "@aws-sdk/lib-dynamodb": "^3.987.0",
     "express": "^5.2.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
