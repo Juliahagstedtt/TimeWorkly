@@ -1,4 +1,21 @@
 .reg-container {
     background-color: rgba(240, 237, 226, 1);
     border-radius: 10px;
+    border: 2px solid rgb(221, 221, 221);
+}
+
+.reg-buttons {
+    background-color: rgba(255, 67, 98, 1);
+    color: rgb(255, 255, 255);
+}
+.buttons-container {
+    margin-bottom: 10px;
+    margin: 10px;
+    margin-right: 10px;
+    gap: 10px;
+}
+
+.user-input, .password-input {
+    padding: 10px;
+    border-radius: 10px;
 }

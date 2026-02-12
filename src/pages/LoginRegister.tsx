@@ -17,9 +17,9 @@ function LoginRegister() {
             <input className='password-input'
             placeholder='Lösenord'
             />
-            <div className='reg-buttons'>
-                <button>Registrera</button>
-                <button>Logga In</button>
+            <div className='buttons-container'>
+                <button className='reg-buttons'>Registrera</button>
+                <button className='reg-buttons'>Logga In</button>
             </div>
            </div>
         </div> 
