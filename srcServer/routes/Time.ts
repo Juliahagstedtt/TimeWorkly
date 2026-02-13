@@ -12,7 +12,7 @@ router.get('/time', async (req, res) => {
 });
 
 //Om tid finns
-router.post('/time', async (req, res) => {
+router.put('/time', async (req, res) => {
 
 });
 
