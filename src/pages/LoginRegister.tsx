@@ -1,6 +1,10 @@
 import '../styles/LoginRegister.css';
+import { useNavigate } from "react-router-dom";
+
 
 function LoginRegister() {
+    const navigate = useNavigate();
+
 
   return (
         <div>
@@ -18,8 +22,8 @@ function LoginRegister() {
             placeholder='Lösenord'
             />
             <div className='buttons-container'>
-                <button className='reg-buttons'>Registrera</button>
-                <button className='reg-buttons'>Logga In</button>
+                <button className='reg-buttons' onClick={() => navigate("/menu")}>Registrera</button>
+                <button className='reg-buttons' onClick={() => navigate("/menu")}>Logga In</button>
             </div>
            </div>
         </div> 
