@@ -7,11 +7,11 @@ let times: TimeEntry[] = [];
 const router = express.Router();
 
 
-router.post('/time', async (req, res) => {
+router.post('/time/manual', async (req, res) => {
 try {
     const { startTime, endTime } = req.body;
-    if(!startTime) {
-        return res.status(400).send({ error: "StartTime krävs" });
+    if(!startTime || !endTime) {
+        return res.status(400).send({ error: "StartTid och SlutTid krävs" });
     }
 
     const newTime = {
@@ -44,9 +44,52 @@ router.get('/time', async (req, res) => {
         }
 });
 
-//Om tid finns
-router.put('/time/id', async (req, res) => {
+router.post('/time/clock-in', async (req, res) => {
+    try {
+        const newTime: TimeEntry = {
+        id: crypto.randomUUID(),
+        startTime: new Date().toISOString(),
+        endTime: null,
+        createdAt: new Date().toISOString(),
+        };
 
+    times.push(newTime);
+
+    res.status(201).send({
+        message: "In stämålad",
+        data: newTime,
+    });
+
+   } catch (error) {
+    res.status(500).send({ error: "Något gick fel!" });
+  } 
+});
+
+
+router.put('/time/:id/clock-out', async (req, res) => {
+    try {
+    const { id } = req.params;
+
+    const time = times.find(t => t.id === id);
+
+    if (!time) {
+      return res.status(404).send({ error: "Tid hittades inte" });
+    }
+
+    if (time.endTime) {
+      return res.status(400).send({ error: "Redan utstämplad" });
+    }
+
+    time.endTime = new Date().toISOString();
+
+    res.status(200).send({
+      message: "Utstämplad",
+      data: time,
+    });
+
+  } catch (error) {
+    res.status(500).send({ error: "Något gick fel!" });
+  }
 });
 
 export default router;
