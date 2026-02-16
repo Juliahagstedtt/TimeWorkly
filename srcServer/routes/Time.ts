@@ -1,8 +1,8 @@
 import express  from 'express';
 import crypto from 'crypto';
-import { time } from 'console';
+import type { TimeEntry } from '../data/middleware.js';
 
-let times = [];
+let times: TimeEntry[] = []; 
 
 const router = express.Router();
 
@@ -34,7 +34,14 @@ try {
 });
 
 router.get('/time', async (req, res) => {
-
+    try {
+        res.status(200).send({ 
+            success: true,
+            data: times,
+        });   
+    } catch (error) {
+        res.status(500).send({ error: "Något gick fel vid hämtning av tiden!" });
+        }
 });
 
 //Om tid finns
