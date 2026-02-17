@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
     const token = createToken(uuid);
 
 
-    res.status(201).send({ 
+    res.status(200).send({ 
         success: true,
         message: 'Inloggningen lyckades!',
         userId: uuid,

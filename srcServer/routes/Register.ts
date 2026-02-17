@@ -2,9 +2,9 @@ import express  from 'express';
 import { PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import db, { myTable } from '../data/dynamoDB.js';
 import { userPostSchema } from '../data/types.js';
+import { createToken } from '../data/Jwt.js';
 import bcrypt from 'bcrypt';
 import crypto from "crypto";
-import z from 'zod';
 
 const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
     }
 
     const { username, password } = parsed.data;
-    const passwordHarsh = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10);
 
     // Skapa Unik Id
     const userId = crypto.randomUUID();
@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
         Pk: `USER#${userId}`,
         Sk: `PROFILE`,
         username: username,
-        password: passwordHarsh,
+        password: passwordHash,
         type: 'user',
     };
 
@@ -50,14 +50,14 @@ router.post('/register', async (req, res) => {
         });
         await db.send(command);
 
-        //TODO: JWT Token
-
+        const token = createToken(userId); 
    
     res.status(201).send({ 
         success: true,
         message: 'Användare skapad!',
         userId: userId,
-        username: username
+        username: username,
+        token
     });
 
  } catch (error) {
