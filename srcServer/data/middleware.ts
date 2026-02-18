@@ -7,7 +7,6 @@ export interface AuthRequest extends Request {
 
 export const checkAuth = (req: AuthRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
-    
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(401).send({ error: "Token saknas" });
     }
@@ -17,7 +16,7 @@ export const checkAuth = (req: AuthRequest, res: Response, next: NextFunction) =
     return res.status(401).json({ error: "Token saknas" });
     }
 
-try {
+    try {
         const payload = verifyToken(token);
         req.userId = payload.userId;
         next();
@@ -34,5 +33,3 @@ export interface TimeEntry {
   endTime: string | null;
   createdAt: string;
 }
-
-let times: TimeEntry[] = [];

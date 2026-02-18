@@ -1,10 +1,10 @@
 import express  from 'express';
 import crypto from 'crypto';
-import type { AuthRequest, TimeEntry } from '../data/middleware.js';
+import { PutCommand, QueryCommand, UpdateCommand, GetCommand } from "@aws-sdk/lib-dynamodb";
+import type { AuthRequest } from '../data/middleware.js';
+import db, { myTable } from "../data/dynamoDB.js";
 import { checkAuth } from '../data/middleware.js';
 import { Temporal } from '@js-temporal/polyfill';
-
-let times: TimeEntry[] = []; 
 
 const router = express.Router();
 
@@ -23,62 +23,77 @@ try {
         return res.status(400).send({ error: "SlutTid måste vara efter StartTid" });
     }
 
-    const newTime: TimeEntry = {
-        id: crypto.randomUUID(),
+    const id = crypto.randomUUID();
+
+
+    const newTime = {
+        Pk: `USER#${req.userId}`,
+        Sk: `TIME#${id}`,
+        id,
         startTime,
         userId: req.userId!,
-        endTime: endTime || null,
+        endTime: endTime,
         createdAt: Temporal.Now.instant().toString(),
+        inputType: 'manual',
+        type: "time",
     };
 
-    times.push(newTime)
-
-    res.status(201).send({ 
-        message: "Tid skapd",
-        data: newTime,
-    });
-
-    } catch (error) {
+    await db.send(new PutCommand({ TableName: myTable, Item: newTime }));
+        res.status(201).send({ message: "Tid skapad", data: newTime });
+      } catch (error) {
         res.status(500).send({ error: "Något gick fel!" });
     }
 });
 
 router.get('/time', checkAuth, async (req: AuthRequest, res) => {
     try {
-        const userTimes = times.filter(
-        (time) => time.userId === req.userId
-        );
+    const result  = await db.send(new QueryCommand({
+        TableName: myTable,
+        KeyConditionExpression: "Pk = :pk AND begins_with(Sk, :tid)",
+        ExpressionAttributeValues: {
+            ":pk": `USER#${req.userId}`,
+            ":tid": "TIME#",
+        },
+      })
+    );
 
         res.status(200).send({ 
             success: true,
-            data: userTimes,
+            data: result.Items ?? [] ,
         });   
 
     } catch (error) {
+        console.log(error);
         res.status(500).send({ error: "Något gick fel vid hämtning av tiden!" });
-        }
+    }
 });
 
 router.post('/time/clock-in', checkAuth, async (req: AuthRequest, res) => {
     try {
-        const now = Temporal.Now.instant();
+        const now = Temporal.Now.instant().toString();
+        const id = crypto.randomUUID();
 
-        const newTime: TimeEntry = {
-        id: crypto.randomUUID(),
-        startTime: now.toString(),
-        userId: req.userId!,
+        const newTime = {
+        Pk: `USER#${req.userId}`,
+        Sk: `TIME#${id}`,
+        id,
+        startTime: now,
         endTime: null,
-        createdAt: now.toString(),
+        createdAt: now,
+        inputType: "clock-in",
+        type: "time",        
         };
 
-    times.push(newTime);
 
-    res.status(201).send({
+    await db.send(new PutCommand({ TableName: myTable, Item: newTime }));
+
+    res.status(200).send({
         message: "In stämplad",
         data: newTime,
     });
 
    } catch (error) {
+    console.log(error);
     res.status(500).send({ error: "Något gick fel!" });
   } 
 });
@@ -88,23 +103,44 @@ router.put('/time/:id/clock-out', checkAuth, async (req: AuthRequest, res) => {
     try {
     const { id } = req.params;
 
-    const time = times.find(
-    t => t.id === id && t.userId === req.userId
-    );
-    
-    if (!time) {
+    const result = await db.send(new GetCommand({
+      TableName: myTable,
+      Key: {
+        Pk: `USER#${req.userId}`,
+        Sk: `TIME#${id}`,
+      },
+    }));
+
+    const timeItem = result.Item;
+
+    if (!timeItem) {
       return res.status(404).send({ error: "Tid hittades inte" });
     }
 
-    if (time.endTime) {
+    if (timeItem.endTime) {
       return res.status(400).send({ error: "Redan utstämplad" });
     }
 
-    time.endTime = Temporal.Now.instant().toString();
+    const now = Temporal.Now.instant().toString();
+
+    await db.send(new UpdateCommand({
+      TableName: myTable,
+      Key: {
+        Pk: timeItem.Pk,
+        Sk: timeItem.Sk,
+      },
+      UpdateExpression: "SET endTime = :endTime",
+      ExpressionAttributeValues: {
+        ":endTime": now,
+      },
+    }));
+
+    timeItem.endTime = now;
+
 
     res.status(200).send({
       message: "Utstämplad",
-      data: time,
+      data: timeItem,
     });
 
   } catch (error) {
