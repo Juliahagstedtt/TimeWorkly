@@ -12,6 +12,8 @@ const router = express.Router();
 router.post('/time/manual', checkAuth, async (req: AuthRequest, res) => {
 try {
     const { startTime, endTime } = req.body;
+    console.log("USERID:", req.userId);
+
     if(!startTime || !endTime) {
         return res.status(400).send({ error: "StartTid och SlutTid krävs" });
     }
@@ -19,7 +21,7 @@ try {
     const start = Temporal.Instant.from(startTime);
     const end = Temporal.Instant.from(endTime);
 
-    if (end < start) {
+    if (Temporal.Instant.compare(end, start) < 0) {
         return res.status(400).send({ error: "SlutTid måste vara efter StartTid" });
     }
 
@@ -42,6 +44,7 @@ try {
         res.status(201).send({ message: "Tid skapad", data: newTime });
       } catch (error) {
         res.status(500).send({ error: "Något gick fel!" });
+        console.log(error);
     }
 });
 

@@ -4,5 +4,9 @@
 }
 
 .clock-buttons {
-    background-color: rgb(255, 61, 87);
+    background-color: rgba(31, 39, 91, 0.71);
+}
+
+.In {
+    background-color: rgb(80, 156, 255);
 }

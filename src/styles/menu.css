@@ -1,7 +1,9 @@
 .menu {
-    background-color: rgb(196, 196, 196);
+    background-color: rgba(240, 237, 226, 1);
+    padding: 30px;
+    width: 100%;
 }
 
 .menu button {
-    background-color: rgb(79, 79, 79);
+    background-color: rgba(31, 39, 91, 0.71);
 }
