@@ -7,6 +7,6 @@
     background-color: rgba(31, 39, 91, 0.71);
 }
 
-.In {
+.In, .Out {
     background-color: rgb(80, 156, 255);
 }

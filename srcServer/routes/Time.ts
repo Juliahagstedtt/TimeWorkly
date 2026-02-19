@@ -151,4 +151,14 @@ router.put('/time/:id/clock-out', checkAuth, async (req: AuthRequest, res) => {
   }
 });
 
+router.post('/clockin', (req, res) => {
+  const { userId, time } = req.body;
+    res.json({ success: true });
+});
+
+router.post('/clockout', (req, res) => {
+  const { userId, time } = req.body;
+  res.json({ success: true });
+});
+
 export default router;

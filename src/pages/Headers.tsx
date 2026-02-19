@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useUserStore } from '../helpers/userStore';
 import "../styles/Headers.css";
 
 
@@ -6,18 +7,35 @@ import "../styles/Headers.css";
 export default function Headers() {
   const navigate = useNavigate();
 
-  return (
+  const token = useUserStore((s) => s.token);
+  // const userId = useUserStore((s) => s.userId);
+  const logout = useUserStore((s) => s.logout);  
+
+    function handleLogout() {
+      logout();
+      navigate("/loginregister");
+  }
+  if (!token) return null;
+
+    return (
     <header className="head">
-        <nav>
-            <>
-            <div>
-                <Link to="/menu">
-                <button className="reg-buttons">Meny</button>
-                </Link>
-                <button className="reg-buttons" onClick={() => navigate("/")}>Logga ut</button>
-            </div>
-            </>
-        </nav>
+      <nav>
+        <div>
+          <Link to="/menu">
+            <button className="reg-buttons">Meny</button>
+          </Link>
+
+          {token && (
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="reg-buttons"
+            >
+              Logga ut
+            </button>
+          )}
+        </div>
+      </nav>
     </header>
   );
 }
