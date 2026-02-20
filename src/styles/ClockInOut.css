@@ -10,3 +10,9 @@
 .In, .Out {
     background-color: rgb(80, 156, 255);
 }
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}

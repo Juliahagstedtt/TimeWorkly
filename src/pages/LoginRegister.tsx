@@ -37,6 +37,7 @@ function LoginRegister() {
         const data = text ? JSON.parse(text) : null;
 
       if (res.ok) {
+        localStorage.setItem("jwt", data.token); 
         setUser({ token: data.token, userId: data.userId, username });
         navigate('/menu');
       } else {
@@ -56,11 +57,12 @@ function LoginRegister() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       });
-      
+
         const text = await res.text();
         const data = text ? JSON.parse(text) : null;
 
       if (res.ok) {
+          localStorage.setItem("jwt", data.token);
         setUser({ token: data.token, userId: data.userId, username: data.username ?? username });
         navigate('/menu');
       } else {

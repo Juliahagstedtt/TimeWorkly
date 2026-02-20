@@ -1,70 +1,116 @@
 import '../styles/ClockInOut.css'
-// import { Temporal } from '@js-temporal/polyfill';
-// import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 
 function ClockInOut() {
-    // const now = Temporal.Now.plainDateTimeISO();
-  const [stampedIn, setStampedIn] = useState(false);
+  const [In, setIn] = useState(false);
   const [clockInTime, setClockInTime] = useState<string | null>(null);
   const [clockOutTime, setClockOutTime] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [totalMinutes, setTotalMinutes] = useState(0);
+
+  const token = localStorage.getItem("jwt")
+
 
   useEffect(() => {
-    const savedIn = localStorage.getItem('clockInTime');
-    const savedOut = localStorage.getItem('clockOutTime');
-    if (savedIn) {
-      setClockInTime(savedIn);
-      setStampedIn(true); 
-    }
-    if (savedOut) {
-      setClockOutTime(savedOut);
-      setStampedIn(false);
-    }
-  }, []);
+    const fetchTimeData = async () => {
+      try {
+        const res = await fetch("http://localhost:10000/time", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        const data = await res.json()
 
-  const handleClockIn = () => {
-    const now = new Date().toLocaleTimeString();
-    setClockInTime(now);
-    localStorage.setItem('clockInTime', now);
-    setStampedIn(true);
-    setClockOutTime(null); 
-    localStorage.removeItem('clockOutTime');
+        if (res.ok) {
+          const activeTime = data.data.find((t: { endTime: string | null; startTime: string }) => !t.endTime)
+          if (activeTime) {
+            setIn(true)
+            setClockInTime(new Date(activeTime.startTime).toLocaleTimeString())
+          } else {
+            setIn(false)
+            setClockInTime(null)
+          }
+          setTotalMinutes(data.totalMinutes)
+        }
+      } catch {
+        console.log("Kunde inte hämta tid")
+      }
+    }
+
+    fetchTimeData()
+  }, [])
+
+
+const handleClockIn = async () => {
+  setErrorMessage(null);
+  try {
+    const res = await fetch("http://localhost:10000/time/clock-in", {
+      method: "POST",
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${token}` 
+      }
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) { 
+      setErrorMessage(data.error); 
+      return; 
+    }
+
+    setIn(true);
+    setClockInTime(new Date(data.data.startTime).toLocaleTimeString());
+    setClockOutTime(null);
+
+  } catch {
+    setErrorMessage("Något gick fel.");
+  }
+};
+
+  const handleClockOut = async () => {
+  setErrorMessage(null);
+  try {
+    const res = await fetch(`http://localhost:10000/time/clock-out`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      setErrorMessage(data.error);
+      return;
+    }
+
+    
+   
+    setClockOutTime(new Date(data.data.endTime).toLocaleTimeString())
+    setIn(false);
+    setClockInTime(null);
+
+  } catch (error) {
+    setErrorMessage("Något gick fel.");
+  }
   };
 
-  const handleClockOut = () => {
-    const now = new Date().toLocaleTimeString();
-    setClockOutTime(now);
-    localStorage.setItem('clockOutTime', now);
-    setStampedIn(false);
-  };
-
-  return (
-    <>     
+  return ( 
     <div className="clock-container">
       <h3>Stämpla In/Ut</h3>
       <div className="clock-buttons">
-        {!stampedIn ? (
-          <button className="In" onClick={handleClockIn}>
-            Stämpla In
-          </button>
+        {!In ? (
+          <button className="In" onClick={handleClockIn}>Stämpla In</button>
         ) : (
-          <button className="Out" onClick={handleClockOut}>
-            Stämpla Ut
-          </button>
+          <button className="Out" onClick={handleClockOut}>Stämpla Ut</button>
         )}
       </div>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      {clockInTime && !clockOutTime && (
-        <p>Du har stämplat in: {clockInTime}</p>
-      )}
-
-      {clockOutTime && (
-        <p>Du har stämplat ut: {clockOutTime}</p>
-      )}
+      {clockInTime && !clockOutTime && <p>Du har stämplat in: {clockInTime}</p>}
+      {clockOutTime && <p>Du har stämplat ut: {clockOutTime}</p>}
 
     </div>
-    </>
   );
 }
 

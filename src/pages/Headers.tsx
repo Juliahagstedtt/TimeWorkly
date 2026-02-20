@@ -8,7 +8,6 @@ export default function Headers() {
   const navigate = useNavigate();
 
   const token = useUserStore((s) => s.token);
-  // const userId = useUserStore((s) => s.userId);
   const logout = useUserStore((s) => s.logout);  
 
     function handleLogout() {

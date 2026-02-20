@@ -60,9 +60,29 @@ router.get('/time', checkAuth, async (req: AuthRequest, res) => {
       })
     );
 
+      const items = result.Items ?? [];
+
+      let totalMinutes = 0;
+      let isClockedIn = false;
+
+      for (const item of items) {
+
+      if (!item.endTime) {
+        isClockedIn = true;
+      }
+
+          if (item.startTime && item.endTime) {
+        const start = Temporal.Instant.from(item.startTime);
+        const end = Temporal.Instant.from(item.endTime);
+        const diff = end.since(start).total({ unit: "minutes" });
+        totalMinutes += diff;
+      }
+    }
         res.status(200).send({ 
             success: true,
-            data: result.Items ?? [] ,
+            data: items,
+            totalMinutes,
+            isClockedIn,
         });   
 
     } catch (error) {
@@ -73,6 +93,26 @@ router.get('/time', checkAuth, async (req: AuthRequest, res) => {
 
 router.post('/time/clock-in', checkAuth, async (req: AuthRequest, res) => {
     try {
+        const existing = await db.send(new QueryCommand({
+          TableName: myTable,
+          KeyConditionExpression: "Pk = :pk AND begins_with(Sk, :sk)",
+          FilterExpression: "attribute_not_exists(endTime)",
+          ExpressionAttributeValues: {
+            ":pk": `USER#${req.userId}`,
+            ":sk": "TIME#",
+          },
+        }));
+
+if (existing.Items && existing.Items.length > 0) {
+  const oldTime = existing.Items[0]!;
+  await db.send(new UpdateCommand({
+    TableName: myTable,
+    Key: { Pk: oldTime.Pk, Sk: oldTime.Sk },
+    UpdateExpression: "SET endTime = :now",
+    ExpressionAttributeValues: { ":now": Temporal.Now.instant().toString() },
+  }));
+}
+            
         const now = Temporal.Now.instant().toString();
         const id = crypto.randomUUID();
 
@@ -102,63 +142,48 @@ router.post('/time/clock-in', checkAuth, async (req: AuthRequest, res) => {
 });
 
 
-router.put('/time/:id/clock-out', checkAuth, async (req: AuthRequest, res) => {
+router.put('/time/clock-out', checkAuth, async (req: AuthRequest, res) => {
     try {
-    const { id } = req.params;
-
-    const result = await db.send(new GetCommand({
+    const result = await db.send(new QueryCommand({
       TableName: myTable,
-      Key: {
-        Pk: `USER#${req.userId}`,
-        Sk: `TIME#${id}`,
+      KeyConditionExpression: "Pk = :pk AND begins_with(Sk, :sk)",
+      FilterExpression: "endTime = :nullValue",
+      ExpressionAttributeValues: {
+        ":pk": `USER#${req.userId}`,
+        ":sk": "TIME#",
+        ":nullValue": null
       },
     }));
 
-    const timeItem = result.Item;
-
-    if (!timeItem) {
-      return res.status(404).send({ error: "Tid hittades inte" });
+    const items = result.Items ?? [];
+    
+    if (items.length === 0) {
+      return res.status(400).send({ error: "Ingen aktiv tid att stämpla ut." });
     }
 
-    if (timeItem.endTime) {
-      return res.status(400).send({ error: "Redan utstämplad" });
-    }
-
+    const timeItem = items[0]!;
     const now = Temporal.Now.instant().toString();
 
     await db.send(new UpdateCommand({
       TableName: myTable,
-      Key: {
-        Pk: timeItem.Pk,
-        Sk: timeItem.Sk,
-      },
+      Key: { Pk: timeItem.Pk, Sk: timeItem.Sk },
       UpdateExpression: "SET endTime = :endTime",
-      ExpressionAttributeValues: {
-        ":endTime": now,
-      },
+      ExpressionAttributeValues: { ":endTime": now },
     }));
 
     timeItem.endTime = now;
-
-
+    
     res.status(200).send({
       message: "Utstämplad",
       data: timeItem,
     });
 
+
   } catch (error) {
+    console.log("User ID:", req.userId)
     res.status(500).send({ error: "Något gick fel!" });
   }
 });
 
-router.post('/clockin', (req, res) => {
-  const { userId, time } = req.body;
-    res.json({ success: true });
-});
-
-router.post('/clockout', (req, res) => {
-  const { userId, time } = req.body;
-  res.json({ success: true });
-});
 
 export default router;
