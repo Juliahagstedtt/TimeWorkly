@@ -27,3 +27,9 @@ export const useUserStore = create<UserState>((set) => ({
     set({ token: null, userId: null, username: null });
   },
 }));
+
+export interface TimeItem {
+  startTime: string;
+  endTime: string | null;
+  inputType: "clock-in" | "manual";
+}

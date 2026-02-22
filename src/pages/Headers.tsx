@@ -9,6 +9,8 @@ export default function Headers() {
 
   const token = useUserStore((s) => s.token);
   const logout = useUserStore((s) => s.logout);  
+  const username = useUserStore((s) => s.username); 
+
 
     function handleLogout() {
       logout();
@@ -19,21 +21,24 @@ export default function Headers() {
     return (
     <header className="head">
       <nav>
-        <div>
-          <Link to="/menu">
-            <button className="reg-buttons">Meny</button>
-          </Link>
+        <aside className="sidebar">
+           <div>
+              <p>{username}</p> 
+              <Link to="/menu">
+                <button className="option-buttons">Meny</button>
+              </Link>
 
-          {token && (
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="reg-buttons"
-            >
-              Logga ut
-            </button>
-          )}
-        </div>
+              {token && (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="option-buttons"
+                >
+                  Logga ut
+                </button>
+              )}
+            </div>
+        </aside>
       </nav>
     </header>
   );

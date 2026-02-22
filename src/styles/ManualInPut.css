@@ -1,3 +1,26 @@
 .manual-container {
-    background-color: rgba(240, 237, 226, 1);
+    background-color: rgba(240, 237, 226, 0.351);
+}
+
+input {
+    border-radius: 5px;
+    height: 20px;
+    border: 1px solid rgba(31, 39, 91, 0.71);
+    color: rgb(114, 114, 114);
+    max-width: 100%;
+    padding: 7px 9px;
+
+}
+
+textarea {
+    border-radius: 5px;
+    padding: 10px;
+    color: rgb(114, 114, 114);
+    border: 1px solid rgba(31, 39, 91, 0.71);
+    max-width: 100%;
+    padding: 7px 14px;
+}
+
+.reg-buttons {
+    align-items: center;
 }

@@ -1,0 +1,20 @@
+.option-buttons {
+    background-color: black;
+}
+.option-buttons:hover {
+    background-color: rgba(103, 108, 145, 0.71);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: rgba(240, 237, 226, 1);
+  padding: 20px;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+

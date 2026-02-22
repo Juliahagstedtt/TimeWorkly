@@ -2,8 +2,29 @@
     background-color: rgba(240, 237, 226, 1);
     padding: 30px;
     width: 100%;
+    border-radius: 5px;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.menu-btn {
+    display: flex;
+    flex-direction: column;  
+    gap: 15px;               
+    margin-top: 20px;
 }
 
-.menu button {
+.menu-button {
     background-color: rgba(31, 39, 91, 0.71);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    width: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-button:hover {
+    background-color: rgba(103, 108, 145, 0.71);
+
 }

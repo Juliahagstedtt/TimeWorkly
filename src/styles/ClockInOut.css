@@ -1,14 +1,16 @@
 .clock-container {
     background-color: rgb(235, 231, 226);
+    padding: 20px;
+    border-radius: 5px;
     color: rgb(0, 0, 0);
 }
 
-.clock-buttons {
+/* .clock-buttons {
     background-color: rgba(31, 39, 91, 0.71);
-}
+} */
 
 .In, .Out {
-    background-color: rgb(80, 156, 255);
+    background-color: rgb(169, 52, 52);
 }
 
 .error-message {

@@ -20,17 +20,16 @@ function Menu() {
   return (
     <div>
       <h1>Välkommen {username}!</h1> 
-¨      <div className="menu">
-        <h1>Meny</h1>
-          <div className="menu-buttons">
+    <div className="menu">
+          <div className="menu-btn">
             <Link to="/clockinout">
-              <button className="menu-btn">Stämpla In/Ut</button>
+              <button className="menu-button">Stämpla In/Ut</button>
             </Link>
             <Link to="/manualinput">
-              <button className="menu-btn">Manuell Inmatning</button>
+              <button className="menu-button">Manuell Inmatning</button>
             </Link>
             <Link to="/overview">
-              <button className="menu-btn">Översikt</button>
+              <button className="menu-button">Översikt</button>
             </Link>
         </div>
       </div>
