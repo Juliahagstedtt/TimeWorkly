@@ -1,5 +1,6 @@
 .reg-container {
-    background-color: rgba(240, 237, 226, 1);
+    background-color: rgb(255, 255, 255);
+    color: black;
     border-radius: 10px;
     border: 2px solid rgb(221, 221, 221);
 }
@@ -7,15 +8,28 @@
 .reg-buttons {
     background-color: rgba(31, 39, 91, 0.71);
     color: rgb(255, 255, 255);
+    border: none;
 }
+
+.reg-buttons:hover {
+    background-color: rgb(124, 138, 151);
+    border: none;
+}
+
 .buttons-container {
     margin-bottom: 10px;
     margin: 10px;
     margin-right: 10px;
     gap: 10px;
 }
-
+p {
+    color: black;
+}
 .user-input, .password-input {
     padding: 10px;
     border-radius: 10px;
+}
+
+.error-message {
+    color: rgb(255, 22, 22);
 }

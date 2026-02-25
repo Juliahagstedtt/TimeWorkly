@@ -23,13 +23,13 @@ function Menu() {
     <div className="menu">
           <div className="menu-btn">
             <Link to="/clockinout">
-              <button className="menu-button">Stämpla In/Ut</button>
+              <button className="clock-button">Stämpla In/Ut</button>
             </Link>
             <Link to="/manualinput">
-              <button className="menu-button">Manuell Inmatning</button>
+              <button className="manual-button">Manuell Inmatning</button>
             </Link>
             <Link to="/overview">
-              <button className="menu-button">Översikt</button>
+              <button className="overview-button">Översikt</button>
             </Link>
         </div>
       </div>

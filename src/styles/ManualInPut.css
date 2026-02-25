@@ -1,5 +1,15 @@
 .manual-container {
-    background-color: rgba(240, 237, 226, 0.351);
+    background-color: rgb(253, 253, 253);
+    padding: 30px;
+    border-radius: 8px;
+    color: rgb(0, 0, 0);
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;   
+    width: 500px;
+    margin: 0 auto;     
+    text-align: start;
 }
 
 input {
@@ -8,7 +18,7 @@ input {
     border: 1px solid rgba(31, 39, 91, 0.71);
     color: rgb(114, 114, 114);
     max-width: 100%;
-    padding: 7px 9px;
+    padding: 10px 12px;
 
 }
 
@@ -23,4 +33,11 @@ textarea {
 
 .reg-buttons {
     align-items: center;
+    margin-top: 15px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
 }

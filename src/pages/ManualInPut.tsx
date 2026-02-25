@@ -56,6 +56,8 @@ function ManualInPut() {
 return (
 <>
     <div className="manual-container">
+        <h2>Registrera arbets tid</h2>
+        <p>Datum</p>
         <input 
         type="date" 
         value={date} 
@@ -101,7 +103,7 @@ return (
         <p>Kommentar:</p>
         <textarea value={comment} onChange={e => setComment(e.target.value)} />
         
-        {errorMessage && <p className="error">{errorMessage}</p>}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button className='reg-buttons' onClick={handleSubmit}>Registrera</button>
 
     </div>

@@ -109,9 +109,9 @@ const handleClockIn = async () => {
 
       {clockInTime && !clockOutTime && <p>Du har stämplat in: {clockInTime}</p>}
       {clockOutTime && <p>Du har stämplat ut: {clockOutTime}</p>}
-      <p>
+      {/* <p>
         Total arbetstid: {Math.floor(totalMinutes / 60)}h {Math.floor(totalMinutes % 60)}min
-      </p>
+      </p> */}
 
     </div>
   );

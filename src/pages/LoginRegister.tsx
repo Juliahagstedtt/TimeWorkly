@@ -80,7 +80,7 @@ function LoginRegister() {
             <h3>Logga in eller registrera dig för att starta igång resan med WorkTimly</h3>
           
            <div className="reg-container">
-            <h1>Logga In / Registrera</h1>
+            <h1>Registrera eller Logga In</h1>
             <p>Användarnamn</p>
             <input className='user-input'
             placeholder='Användarnamn'
@@ -93,7 +93,7 @@ function LoginRegister() {
             type="password"
             value={password}
             onChange={e => setPassword(e.target.value)} />
-            {errorMessage && <p className="error">{errorMessage}</p>}
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             <div className='buttons-container'>
                 <button className='reg-buttons' onClick={handleRegister}>Registrera</button>
