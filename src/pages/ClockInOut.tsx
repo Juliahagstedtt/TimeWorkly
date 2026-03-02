@@ -7,7 +7,7 @@ function ClockInOut() {
   const [clockInTime, setClockInTime] = useState<string | null>(null);
   const [clockOutTime, setClockOutTime] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [totalMinutes, setTotalMinutes] = useState(0);
+  const [comment, setComment] = useState("");
 
   const token = localStorage.getItem("jwt")
 
@@ -24,12 +24,11 @@ function ClockInOut() {
           const activeTime = data.data.find((t: { endTime: string | null; startTime: string }) => !t.endTime)
           if (activeTime) {
             setIn(true)
-            setClockInTime(new Date(activeTime.startTime).toLocaleTimeString())
+            setClockInTime(new Date(activeTime.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
           } else {
             setIn(false)
             setClockInTime(null)
           }
-          setTotalMinutes(data.totalMinutes)
         }
       } catch {
         console.log("Kunde inte hämta tid")
@@ -48,7 +47,8 @@ const handleClockIn = async () => {
       headers: { 
         'Content-Type': 'application/json', 
         'Authorization': `Bearer ${token}` 
-      }
+      },
+      body: JSON.stringify({ comment }) 
     });
 
     const data = await res.json();
@@ -59,8 +59,9 @@ const handleClockIn = async () => {
     }
 
     setIn(true);
-    setClockInTime(new Date(data.data.startTime).toLocaleTimeString());
+    setClockInTime(new Date(data.data.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     setClockOutTime(null);
+    setComment(""); 
 
   } catch {
     setErrorMessage("Något gick fel.");
@@ -75,8 +76,10 @@ const handleClockIn = async () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      }
+      },
+      body: JSON.stringify({ comment }) 
     });
+    setComment("");
 
     const data = await res.json();
     if (!res.ok) {
@@ -86,7 +89,7 @@ const handleClockIn = async () => {
 
     
    
-    setClockOutTime(new Date(data.data.endTime).toLocaleTimeString())
+    setClockOutTime(new Date(data.data.endTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     setIn(false);
     setClockInTime(null);
 
@@ -98,6 +101,7 @@ const handleClockIn = async () => {
   return ( 
     <div className="clock-container">
       <h3>Stämpla In/Ut</h3>
+
       <div className="clock-buttons">
         {!In ? (
           <button className="In" onClick={handleClockIn}>Stämpla In</button>
@@ -109,9 +113,6 @@ const handleClockIn = async () => {
 
       {clockInTime && !clockOutTime && <p>Du har stämplat in: {clockInTime}</p>}
       {clockOutTime && <p>Du har stämplat ut: {clockOutTime}</p>}
-      {/* <p>
-        Total arbetstid: {Math.floor(totalMinutes / 60)}h {Math.floor(totalMinutes % 60)}min
-      </p> */}
 
     </div>
   );

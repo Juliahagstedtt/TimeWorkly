@@ -8,31 +8,36 @@ function ManualInPut() {
   const [end, setEnd] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [date, setDate] = useState("");
-  const [breakCount, setBreakCount] = useState(0);
-  const [breaks, setBreaks] = useState<number[]>([]);
-  const [comment, setComment] = useState("");
+  const [breakCount, setBreakCount] = useState<number | "">("");
+  const [breaks, setBreaks] = useState<(number | "")[]>([]);
 
 
-  const handleBreakChange = (index: number, value: string) => {
-    const newBreaks = [...breaks];
-    newBreaks[index] = parseFloat(value) || 0;
-    setBreaks(newBreaks);
-  };
+const handleBreakChange = (index: number, value: string) => {
+  const newBreaks = [...breaks];
+
+  if (value === "") {
+    newBreaks[index] = "";
+  } else {
+    newBreaks[index] = Number(value);
+  }
+
+  setBreaks(newBreaks);
+};
 
   const handleSubmit = async () => {
-    if (!start || !end) {
-    setErrorMessage("Fyll i start och slut");
+      if (!date || !start || !end) {
+    setErrorMessage("Fyll i datum, start och slut");
     return;
-    }
+  }
 
     setErrorMessage(""); 
 
-    const today = new Date().toISOString().split("T")[0];
+  const startISO = `${date}T${start}:00.000Z`;
+  const endISO = `${date}T${end}:00.000Z`;
 
-    const startISO = new Date(`${date}T${start}:00`).toISOString();
-    const endISO = new Date(`${date}T${end}:00`).toISOString();
-
-    const totalBreakMinutes = breaks.reduce((acc, b) => acc + b, 0);
+  const totalBreakMinutes = breaks
+    .filter((b): b is number => b !== "")
+    .reduce((a, b) => a + b, 0);
 
     const token = localStorage.getItem("jwt");
 
@@ -45,8 +50,7 @@ function ManualInPut() {
       body: JSON.stringify({
         startTime: startISO,
         endTime: endISO,
-        breaks: totalBreakMinutes,
-        comment,
+        breakMinutes: totalBreakMinutes,
       }),
     });
 
@@ -76,17 +80,22 @@ return (
         value={end}
         onChange={(e) => setEnd(e.target.value)}/>
 
-        <p>Rast</p>
-        <input         
-        type="number"
-        min={0}
-        value={breakCount}
-        onChange={e => {
-          const count = parseInt(e.target.value) || 0;
-          setBreakCount(count);
-          setBreaks(Array(count).fill(0));
-        }}
-      />
+        <p>Antal raster</p>
+        <select
+          value={breakCount}
+          onChange={e => {
+            const count = parseInt(e.target.value);
+            setBreakCount(count);
+            setBreaks(Array(count).fill(""));
+          }}>
+          <option value=""></option>
+          <option value={1}>1 rast</option>
+          <option value={2}>2 raster</option>
+          <option value={3}>3 raster</option>
+          <option value={4}>4 raster</option>
+          <option value={5}>5 raster</option>
+        </select>
+
 
       {breaks.map((b, index) => (
         <div key={index}>
@@ -94,15 +103,13 @@ return (
           <input
             type="number"
             min={0}
+            placeholder="t.ex. 30"
             value={b}
             onChange={e => handleBreakChange(index, e.target.value)}
           />
         </div>
       ))}
 
-        <p>Kommentar:</p>
-        <textarea value={comment} onChange={e => setComment(e.target.value)} />
-        
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <button className='reg-buttons' onClick={handleSubmit}>Registrera</button>
 

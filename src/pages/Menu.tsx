@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 function Menu() {
   const navigate = useNavigate();
   const token = useUserStore((s) => s.token);
-  const username = useUserStore((s) => s.username); 
 
   useEffect(() => {
     if (!token) {
@@ -19,7 +18,6 @@ function Menu() {
 
   return (
     <div>
-      <h1>Välkommen {username}!</h1> 
     <div className="menu">
           <div className="menu-btn">
             <Link to="/clockinout">

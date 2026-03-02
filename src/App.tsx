@@ -8,6 +8,7 @@ import ClockInOut from './pages/ClockInOut';
 import ManualInPut from './pages/ManualInPut';
 import OverView from './pages/OverView';
 import MonthOverView from './pages/MonthOverview';
+import Edit from './pages/Edit';
 
 function App() {
   const token = useUserStore((s) => s.token);
@@ -23,6 +24,7 @@ function App() {
         <Route path="/manualinput" element={token ? <ManualInPut /> : <Navigate to="/" />} />
         <Route path="/overview" element={token ? <OverView /> : <Navigate to="/" />} />
         <Route path="/monthoverview" element={token ? <MonthOverView /> : <Navigate to="/" />} />
+        <Route path="/edit/:date" element={token ? <Edit /> : <Navigate to="/" />} />     
       </Routes>
     </>
   );

@@ -11,18 +11,28 @@ const router = express.Router();
 
 router.post('/time/manual', checkAuth, async (req: AuthRequest, res) => {
 try {
-    const { startTime, endTime } = req.body;
+    const { startTime, endTime, breakMinutes = 0 } = req.body;
     console.log("USERID:", req.userId);
 
     if(!startTime || !endTime) {
         return res.status(400).send({ error: "StartTid och SlutTid krävs" });
     }
 
+    if (breakMinutes < 0) {
+      return res.status(400).send({ error: "Raster kan inte vara negativa." });
+    }
+
     const start = Temporal.Instant.from(startTime);
     const end = Temporal.Instant.from(endTime);
 
-    if (Temporal.Instant.compare(end, start) < 0) {
-        return res.status(400).send({ error: "SlutTid måste vara efter StartTid" });
+    const diffMinutes = end.since(start).total({ unit: "minutes" });
+
+    if (diffMinutes <= 0) {
+      return res.status(400).send({ error: "SlutTid måste vara efter StartTid" });
+    }
+
+    if (diffMinutes < 1) {
+      return res.status(400).send({ error: "Arbetspasset måste vara minst 1 minut" });
     }
 
     const id = crypto.randomUUID();
@@ -35,6 +45,7 @@ try {
         startTime,
         userId: req.userId!,
         endTime: endTime,
+        breakMinutes,
         createdAt: Temporal.Now.instant().toString(),
         inputType: 'manual',
         type: "time",
@@ -72,11 +83,15 @@ router.get('/time', checkAuth, async (req: AuthRequest, res) => {
       }
 
           if (item.startTime && item.endTime) {
-        const start = Temporal.Instant.from(item.startTime);
-        const end = Temporal.Instant.from(item.endTime);
-        const diff = end.since(start).total({ unit: "minutes" });
-        totalMinutes += diff;
-      }
+              const start = Temporal.Instant.from(item.startTime);
+              const end = Temporal.Instant.from(item.endTime);
+              const diff = end.since(start).total({ unit: "minutes" });
+              const breakMinutes = item.breakMinutes ?? 0;
+
+              const workedMinutes = diff - breakMinutes;
+
+              totalMinutes += workedMinutes > 0 ? workedMinutes : 0;
+            }
     }
         res.status(200).send({ 
             success: true,
@@ -181,6 +196,67 @@ router.put('/time/clock-out', checkAuth, async (req: AuthRequest, res) => {
 
   } catch (error) {
     console.log("User ID:", req.userId)
+    res.status(500).send({ error: "Något gick fel!" });
+  }
+});
+
+
+router.put('/time/:id', checkAuth, async (req: AuthRequest, res) => {
+  try {
+    const { id } = req.params;
+    const { startTime, endTime, breakMinutes = 0 } = req.body;
+    if (!startTime || !endTime) {
+      return res.status(400).send({ error: "StartTid och SlutTid krävs" });
+    }
+
+    const start = Temporal.Instant.from(startTime);
+    const end = Temporal.Instant.from(endTime);
+
+    if (Temporal.Instant.compare(end, start) < 0) {
+      return res.status(400).send({ error: "SlutTid måste vara efter StartTid" });
+    }
+
+    const existing = await db.send(new GetCommand({
+      TableName: myTable,
+      Key: {
+        Pk: `USER#${req.userId}`,
+        Sk: `TIME#${id}`,
+      },
+    }));
+
+    if (!existing.Item) {
+      return res.status(404).send({ error: "Tiden hittades inte" });
+    }
+
+    await db.send(new UpdateCommand({
+      TableName: myTable,
+      Key: {
+        Pk: `USER#${req.userId}`,
+        Sk: `TIME#${id}`,
+      },
+      UpdateExpression: `
+        SET startTime = :startTime,
+            endTime = :endTime,
+            breakMinutes = :breakMinutes,
+            updatedAt = :updatedAt
+      `,
+      ExpressionAttributeValues: {
+        ":startTime": startTime,
+        ":endTime": endTime,
+        ":breakMinutes": breakMinutes,
+        ":updatedAt": Temporal.Now.instant().toString(),
+      },
+    }));
+
+    res.status(200).send({
+      message: "Tiden uppdaterad",
+      id,
+      startTime,
+      endTime,
+    });
+
+  } catch (error) {
+    console.log(error);
     res.status(500).send({ error: "Något gick fel!" });
   }
 });

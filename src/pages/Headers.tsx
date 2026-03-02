@@ -23,7 +23,7 @@ export default function Headers() {
       <nav>
         <aside className="sidebar">
            <div>
-              <p>{username}</p> 
+              <p className="user">{username}</p> 
               <Link to="/menu">
                 <button className="option-buttons">Meny</button>
               </Link>

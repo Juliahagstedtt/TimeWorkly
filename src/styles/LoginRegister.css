@@ -1,8 +1,21 @@
-.reg-container {
-    background-color: rgb(255, 255, 255);
-    color: black;
-    border-radius: 10px;
-    border: 2px solid rgb(221, 221, 221);
+.first-container {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 4px 5px 15px rgba(0,0,0,0.15);
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-family: 'Inter', sans-serif;
+}
+
+.reg-container h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .reg-buttons {
@@ -16,18 +29,25 @@
     border: none;
 }
 
-.buttons-container {
-    margin-bottom: 10px;
-    margin: 10px;
-    margin-right: 10px;
-    gap: 10px;
+.user-input,
+.password-input {
+    padding: 15px 17px;
+    border-radius: 6px;
+    border: 1px solid rgba(31, 39, 91, 0.4);
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
 }
+
+.buttons-container {
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+    justify-content: center;
+}
+
 p {
     color: black;
-}
-.user-input, .password-input {
-    padding: 10px;
-    border-radius: 10px;
 }
 
 .error-message {

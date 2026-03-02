@@ -10,6 +10,21 @@ html, body {
   text-align: center;
 }
 
+.app-layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 200px;
+  padding: 40px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

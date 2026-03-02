@@ -1,8 +1,8 @@
 .week-container {
     max-width: 700px;
     margin: 40px auto;
-    background: rgb(240, 237, 226);
-    padding: 30px;
+    background: rgb(255, 255, 255);
+    padding: 70px;
     border-radius: 12px;
     box-shadow: 4px 5px 15px rgba(0,0,0,0.15);
 }
@@ -12,6 +12,66 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+.week-header button:hover {
+    background: rgba(103, 108, 145, 0.9);
+}
+
+.table-heads {
+  flex: 1;
+  font-weight: 600;
+  font-size: 17px;
+  color: #1f275b;
+}
+
+.head-names,
+.week-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.head-names span,
+.week-row span {
+  flex: 1;
+}
+
+.week-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 7px;
+  border-bottom: 1px solid #fdf6fb;
+  gap: 20px;
+}
+
+.week-row button {
+    flex: 1;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.week-row:hover {
+    background: #f8f9fc;
+}
+
+.week-date,
+.week-hours,
+.table-heads {
+  flex: 1;
+}
+
+.selected-time {
+    background-color: #ff2c80;
+}
+
+.edit-button {
+    background: none;
+}
+.edit-button img {
+    background: none;
 }
 
 .week-header button {
@@ -45,26 +105,19 @@
 
 .week-table {
     border-top: 1px solid #ccc;
-}
-
-.week-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    border-bottom: 1px solid #ddd;
-}
-
-.week-date {
-    font-weight: 500;
-}
-
-.week-hours {
+    width: 100%;
+    margin-top: 20px;
     font-weight: bold;
+}
+
+.edit-button {
+    width: 35px;
+    height: 35px;
 }
 
 .week-total {
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     text-align: right;
 }

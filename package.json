@@ -9,7 +9,7 @@
     "build-server": "tsc -p ./srcServer/tsconfig.json",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start-server": "node --env-file ./.env  ./distServer/server.js",
+    "start-server": "node ./distServer/server.js",
     "restart-server": "clear && npm run build-server && npm run start-server",
     "predeploy": "npm run build-frontend && npm run build-server"
   },

@@ -75,3 +75,19 @@
     border: 2px solid #D37CBC;
 
 }
+
+
+@media (max-width: 375px) {
+  .menu {
+    padding: 16px;
+  }
+
+  .menu-button,
+  .clock-button,
+  .manual-button,
+  .overview-button {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 12px 14px;
+  }
+}

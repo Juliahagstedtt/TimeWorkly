@@ -29,7 +29,9 @@ export const useUserStore = create<UserState>((set) => ({
 }));
 
 export interface TimeItem {
+  id: string;
   startTime: string;
   endTime: string | null;
   inputType: "clock-in" | "manual";
+  breakMinutes?: number; 
 }
