@@ -22,7 +22,7 @@ function Edit() {
     if (!date) return;
 
     const fetchTimes = async () => {
-      const res = await fetch("http://localhost:10000/time", {
+      const res = await fetch("/time", {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();

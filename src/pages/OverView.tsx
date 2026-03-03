@@ -87,7 +87,7 @@ for (let i = 0; i < 7; i++) {
   useEffect(() => {
     const fetchTimes = async () => {
       try {
-        const res = await fetch("http://localhost:10000/time", {
+        const res = await fetch("/time", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) return;

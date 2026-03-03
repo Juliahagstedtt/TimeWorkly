@@ -15,7 +15,7 @@ function ClockInOut() {
   useEffect(() => {
     const fetchTimeData = async () => {
       try {
-        const res = await fetch("http://localhost:10000/time", {
+        const res = await fetch("/time", {
           headers: { Authorization: `Bearer ${token}` }
         })
         const data = await res.json()
@@ -42,7 +42,7 @@ function ClockInOut() {
 const handleClockIn = async () => {
   setErrorMessage(null);
   try {
-    const res = await fetch("http://localhost:10000/time/clock-in", {
+    const res = await fetch("/time/clock-in", {
       method: "POST",
       headers: { 
         'Content-Type': 'application/json', 

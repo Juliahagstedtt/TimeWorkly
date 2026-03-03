@@ -41,7 +41,7 @@ const handleBreakChange = (index: number, value: string) => {
 
     const token = localStorage.getItem("jwt");
 
-    await fetch("http://localhost:10000/time/manual", {
+    await fetch("/time/manual", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
