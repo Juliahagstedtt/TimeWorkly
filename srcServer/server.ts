@@ -9,6 +9,7 @@ const port = Number(process.env.PORT) || 10000;
 
 app.use(cors())
 app.use(express.json());
+app.use(express.static("./dist/"));
 
 
 app.use('/', userRoute); 

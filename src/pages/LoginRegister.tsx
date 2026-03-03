@@ -76,12 +76,9 @@ function LoginRegister() {
 
   return (
         <div className='first-container'>
-            {/* <h1>Välkommen till</h1>  */}
               <h1>WorkTimly</h1>
-            {/* <h3>Logga in eller registrera dig för att starta igång resan med WorkTimly</h3> */}
           
            <div className="reg-container">
-            {/* <h2>Registrera/Logga In</h2> */}
             <p>Här kan du registrera dig eller logga in på ditt tidigare konto</p>
             <p>Användarnamn</p>
             <input className='user-input'

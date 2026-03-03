@@ -59,7 +59,6 @@
     transition: 0.2s;
 }
 
-
 .clock-button:hover {
     background-color: rgba(103, 145, 129, 0.71);
     border: 2px solid #22C55E;
@@ -75,7 +74,6 @@
     border: 2px solid #D37CBC;
 
 }
-
 
 @media (max-width: 375px) {
   .menu {
