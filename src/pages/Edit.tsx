@@ -100,7 +100,7 @@ navigate("/overview");
 };
 
   return (
-    <div className="manual-container">
+    <div className="card">
       <h2>Redigera arbetspass {date}</h2>
 
       {times.length === 0 && <p>Inga tider denna dag.</p>}

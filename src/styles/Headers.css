@@ -1,15 +1,25 @@
 .option-buttons {
     background-color: #d37cbc;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s;
+    margin-bottom: 1px;
 }
 
 
 .option-buttons:hover {
-    background-color:  #C065AA;;
+    background-color:  #bf9db6;;
     border: none;
 }
 
 .user {
     color: white;
+    align-items: center;
+
 }
 .sidebar {
   position: fixed;
@@ -22,10 +32,15 @@
   box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  gap: 10px;
+}
+
+.main-content {
+  margin-left: 200px;
+  padding: 40px;
 }
 
 @media (max-width: 768px) {
-
   .sidebar {
     position: fixed;
     top: 0;
@@ -36,10 +51,11 @@
     justify-content: space-around;
     align-items: center;
     padding: 15px;
+    margin-bottom: 1px;
   }
 
-  .sidebar h2 {
-    display: none;
+  .user {
+    display: flex;
   }
 
   .option-buttons {
@@ -49,7 +65,9 @@
   }
 
   .main-content {
-    margin-left: 0; 
-    margin-top: 80px; 
+    margin-left: 0;
+    padding: 20px;
+    padding-top: 120px;  
   }
 }
+

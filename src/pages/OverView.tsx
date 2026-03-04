@@ -117,7 +117,7 @@ for (let i = 0; i < 7; i++) {
 
 return (
 <>
-    <div className="week-container">
+    <div className="card">
           <div className="week-header">
         <button onClick={() => changeWeek(-1)}> ⟵ </button>
         <button onClick={() => changeWeek(1)}> ⟶ </button>

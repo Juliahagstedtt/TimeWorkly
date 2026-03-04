@@ -75,10 +75,10 @@ function LoginRegister() {
 
 
   return (
-        <div className='first-container'>
+        <div className='card'>
               <h1>WorkTimly</h1>
           
-           <div className="reg-container">
+           <div className="card">
             <p>Här kan du registrera dig eller logga in på ditt tidigare konto</p>
             <p>Användarnamn</p>
             <input className='user-input'

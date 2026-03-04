@@ -59,7 +59,7 @@ const handleBreakChange = (index: number, value: string) => {
 
 return (
 <>
-    <div className="manual-container">
+    <div className="card">
         <h2>Registrera arbets tid</h2>
         <p>Datum</p>
         <input 

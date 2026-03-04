@@ -7,7 +7,6 @@ import Menu from './pages/Menu'
 import ClockInOut from './pages/ClockInOut';
 import ManualInPut from './pages/ManualInPut';
 import OverView from './pages/OverView';
-import MonthOverView from './pages/MonthOverview';
 import Edit from './pages/Edit';
 
 function App() {
@@ -15,6 +14,7 @@ function App() {
   return (  
     <>     
       <Headers />
+      <div className="main-content">
       <Routes>
         <Route path="/" element={<LoginRegister />} />
         <Route path="/logginregister" element={<LoginRegister />} />
@@ -23,9 +23,9 @@ function App() {
         <Route path="/clockinout" element={token ? <ClockInOut /> : <Navigate to="/" />} />
         <Route path="/manualinput" element={token ? <ManualInPut /> : <Navigate to="/" />} />
         <Route path="/overview" element={token ? <OverView /> : <Navigate to="/" />} />
-        <Route path="/monthoverview" element={token ? <MonthOverView /> : <Navigate to="/" />} />
         <Route path="/edit/:date" element={token ? <Edit /> : <Navigate to="/" />} />     
       </Routes>
+      </div>
     </>
   );
 }

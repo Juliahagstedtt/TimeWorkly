@@ -99,7 +99,7 @@ const handleClockIn = async () => {
   };
 
   return ( 
-    <div className="clock-container">
+    <div className="card">
       <h3>Stämpla In/Ut</h3>
 
       <div className="clock-buttons">
