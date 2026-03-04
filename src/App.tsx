@@ -17,7 +17,7 @@ function App() {
       <div className="main-content">
       <Routes>
         <Route path="/" element={<LoginRegister />} />
-        <Route path="/logginregister" element={<LoginRegister />} />
+        <Route path="/loginregister" element={<LoginRegister />} />
 
         <Route path="/menu" element={token ? <Menu /> : <Navigate to="/" />} />
         <Route path="/clockinout" element={token ? <ClockInOut /> : <Navigate to="/" />} />

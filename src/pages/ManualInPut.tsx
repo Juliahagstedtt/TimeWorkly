@@ -61,26 +61,26 @@ return (
 <>
     <div className="card">
         <h2>Registrera arbets tid</h2>
-        <p>Datum</p>
+        <label>Datum</label>
         <input 
         type="date" 
         value={date} 
         onChange={e => setDate(e.target.value)}/>
 
 
-        <p>Start:</p>
+        <label>Start:</label>
         <input 
         type="time"
         value={start}
         onChange={(e) => setStart(e.target.value)}/>
 
-        <p>Slut:</p>
+        <label>Slut:</label>
         <input 
         type="time"
         value={end}
         onChange={(e) => setEnd(e.target.value)}/>
 
-        <p>Antal raster</p>
+        <label>Antal raster</label>
         <select
           value={breakCount}
           onChange={e => {
@@ -99,7 +99,7 @@ return (
 
       {breaks.map((b, index) => (
         <div key={index}>
-          <p>Rast {index + 1} (minuter):</p>
+          <label>Rast {index + 1}</label>
           <input
             type="number"
             min={0}

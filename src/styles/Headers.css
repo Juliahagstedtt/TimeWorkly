@@ -18,7 +18,7 @@
 
 .user {
     color: white;
-    align-items: center;
+    text-align: center;
 
 }
 .sidebar {
@@ -52,10 +52,6 @@
     align-items: center;
     padding: 15px;
     margin-bottom: 1px;
-  }
-
-  .user {
-    display: flex;
   }
 
   .option-buttons {

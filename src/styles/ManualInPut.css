@@ -1,43 +1,9 @@
-/* .card {
-    background-color: rgb(253, 253, 253);
-    padding: 40px 35px;
-    border-radius: 12px;
-    color: rgb(0, 0, 0);
-    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
-
-    display: flex;
-    flex-direction: column;   
-    width: 500px;
-    max-width: 90%;           
-    margin: 40px auto;          
-    text-align: left;
-    font-family: 'Inter', sans-serif;
-} */
 
 .manual-container h2 {
     margin-bottom: 20px;
     font-size: 1.6rem;
     font-weight: 600;
 }
-
-/* input {
-    border-radius: 5px;
-    height: 20px;
-    border: 1px solid rgba(31, 39, 91, 0.71);
-    color: rgb(114, 114, 114);
-    max-width: 100%;
-    padding: 10px 12px;
-
-}
-
-textarea, select {
-    border-radius: 5px;
-    padding: 10px;
-    color: rgb(114, 114, 114);
-    border: 1px solid rgba(31, 39, 91, 0.71);
-    max-width: 100%;
-    padding: 7px 14px;
-} */
 
 .reg-buttons {
     display: inline-flex;

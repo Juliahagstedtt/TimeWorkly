@@ -145,11 +145,13 @@ return (
         {total.h}h {total.m}min
       </span>
 
-      {hasItems && (
-        <button onClick={() => navigate(`/edit/${dayISO}`)}>
-          <img className="edit-button" src={EditIcon} alt="Redigera" />
-        </button>
-      )}
+  {hasItems ? (
+    <button onClick={() => navigate(`/edit/${dayISO}`)}>
+      <img className="edit-button" src={EditIcon} alt="Redigera" />
+    </button>
+  ) : (
+    <span></span>
+  )}
     </div>
   );
 })}

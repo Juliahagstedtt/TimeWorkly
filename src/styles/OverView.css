@@ -1,77 +1,18 @@
 .card {
-    max-width: 700px;
+    max-width: 450px;
     margin: 40px auto;
     background: rgb(255, 255, 255);
-    padding: 70px;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 4px 5px 15px rgba(0,0,0,0.15);
+    text-align: center;
 }
 
 .week-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.week-header button:hover {
-    background: rgba(103, 108, 145, 0.9);
-}
-
-.table-heads {
-  flex: 1;
-  font-weight: 600;
-  font-size: 17px;
-  color: #1f275b;
-}
-
-.head-names,
-.week-row {
-  display: flex;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.head-names span,
-.week-row span {
-  flex: 1;
-}
-
-.week-row {
-  display: flex;
-  align-items: center;
-  padding: 10px 7px;
-  border-bottom: 1px solid #fdf6fb;
-  gap: 20px;
-}
-
-.week-row button {
-    flex: 1;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.week-row:hover {
-    background: #f8f9fc;
-}
-
-.week-date,
-.week-hours,
-.table-heads {
-  flex: 1;
-}
-
-.selected-time {
-    background-color: #ff2c80;
-}
-
-.edit-button {
-    background: none;
-}
-.edit-button img {
-    background: none;
+    margin-bottom: 16px;
 }
 
 .week-header button {
@@ -85,39 +26,107 @@
 }
 
 .week-header button:hover {
-    background: rgba(103, 108, 145, 0.8);
-}
-
-.month-button {
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 8px;
-    border: none;
-    background: rgba(31, 39, 91, 0.7);
-    color: white;
-    cursor: pointer;
-}
-
-.month-button:hover {
-    background: rgba(103, 108, 145, 0.8);
+    background: rgba(103, 108, 145, 0.9);
 }
 
 .week-table {
     border-top: 1px solid #ccc;
     width: 100%;
     margin-top: 20px;
-    font-weight: bold;
+}
+
+.head-names , .week-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 50px;
+  align-items: center;
+  column-gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-heads {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1f275b;
+}
+
+.week-hours {
+  text-align: center;
+}
+
+.week-row:hover {
+    background: #f8f9fc;
+}
+
+.week-row button {
+  width: 50px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .edit-button {
-    width: 35px;
-    height: 35px;
+  width: 28px;
+  height: 28px;
+  display: block;
 }
 
 .week-total {
-    margin-top: 20px;
+    margin-top: 16px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700;
     text-align: right;
+}
+
+@media (max-width: 375px) {
+  .card {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 16px;
+  }
+
+  .week-header button {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  .head-names {
+    display: none;
+  }
+
+  .week-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 0;
+  }
+
+  .week-row button {
+    align-self: flex-end;
+  }
+
+  .week-date {
+    font-size: 14px;
+  }
+
+  .week-hours {
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .edit-button {
+    width: 28px;
+    height: 28px;
+  }
+
+  .week-total {
+    text-align: left;
+    margin: 10px auto 20px;
+    padding: 0 16px;
+  }
 }
