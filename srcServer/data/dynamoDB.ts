@@ -7,8 +7,8 @@ const secretAccessKey: string = process.env.SECRET_ACCESS_KEY || '';
 const client: DynamoDBClient = new DynamoDBClient({
 	region: "eu-north-1",  
 	credentials: {
-		accessKeyId: accessKey,
-		secretAccessKey: secretAccessKey,
+   	 	accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
+    	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
 	},
 });
 const db: DynamoDBDocumentClient = DynamoDBDocumentClient.from(client);
