@@ -47,8 +47,7 @@ html, body {
 }
 
 input,
-textarea,
-select {
+textarea {
   width: 100%;
   padding: 12px;
   border-radius: 8px;

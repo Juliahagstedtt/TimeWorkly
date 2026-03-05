@@ -5,20 +5,6 @@
     font-weight: 600;
 }
 
-/* .reg-buttons {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    background-color: #1f275b;
-    color: #fff;
-    font-weight: 500;
-    cursor: pointer;
-} */
-
 .card label {
   display: block;
   margin: 12px 0 6px;
@@ -32,9 +18,18 @@
   max-width: 420px;
   display: block;
   margin: 0 auto;
-  padding: 10px 12px;
+  padding: 12px;
   border-radius: 8px;
   border: 1px solid #cfd6e4;
   background: #fff;
   color: #4f4f4f;
+}
+
+@media (max-width: 375px) {
+
+  .card input,
+  .card select {
+    max-width: 100%;
+  }
+
 }
