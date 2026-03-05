@@ -1,4 +1,4 @@
-.card {
+.overview-card {
     max-width: 450px;
     margin: 40px auto;
     background: rgb(255, 255, 255);
@@ -26,7 +26,7 @@
 }
 
 .week-header button:hover {
-    background: rgba(103, 108, 145, 0.9);
+    background-color: rgb(124, 138, 151);
 }
 
 .week-table {

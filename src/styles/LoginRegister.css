@@ -1,34 +1,18 @@
-.card {
-    max-width: 400px;
-    margin: 60px auto;
-    padding: 40px 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 4px 5px 15px rgba(0,0,0,0.15);
-
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-family: 'Inter', sans-serif;
-}
-
 .reg-container h2 {
     margin-bottom: 10px;
     font-size: 1.5rem;
     font-weight: 600;
 }
 
-.reg-buttons {
-    background-color: rgba(31, 39, 91, 0.71);
-    color: rgb(255, 255, 255);
-    border: none;
-}
+.reg-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-left: 300px;
 
-.reg-buttons:hover {
-    background-color: rgb(124, 138, 151);
-    border: none;
 }
-
 .user-input,
 .password-input {
     padding: 15px 17px;
@@ -46,10 +30,26 @@
     justify-content: center;
 }
 
-p {
+.reg-container p {
     color: black;
 }
 
-.error-message {
-    color: rgb(255, 22, 22);
+
+@media (max-width: 1200px) {
+  .reg-container {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 992px) {
+  .reg-container {
+    margin-left: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reg-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

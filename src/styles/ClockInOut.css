@@ -1,15 +1,23 @@
 .clock-buttons, h3 {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 12px 0;
 }
 
-.In, .Out {
+.card h3 {
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.stamp-button {
     background-color: rgb(169, 52, 52);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    min-width: 160px;
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
-  font-size: 14px;
+.stamp-button:hover {
+  background-color: rgb(194, 129, 129);
 }

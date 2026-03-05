@@ -75,7 +75,7 @@ function LoginRegister() {
 
 
   return (
-        <div className='card'>
+        <div className='reg-container'>
               <h1>WorkTimly</h1>
           
            <div className="card">

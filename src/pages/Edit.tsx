@@ -31,6 +31,13 @@ function Edit() {
       );
       setTimes(filtered);
 
+      if (!selectedIdFromState && filtered.length > 0) {
+        const first = filtered[0];
+        setSelectedId(first.id);
+        setStart(first.startTime.slice(11, 16));
+        setEnd(first.endTime ? first.endTime.slice(11, 16) : "");
+      }
+
       if (selectedIdFromState) {
         const selected = filtered.find((t) => t.id === selectedIdFromState);
         if (selected) {

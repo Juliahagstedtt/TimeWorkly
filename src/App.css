@@ -32,6 +32,8 @@ html, body {
   flex: 1;
   margin-left: 200px;
   padding: 40px;
+  text-align: center;
+  justify-content: center;
 }
 
 .card {
@@ -59,15 +61,31 @@ button {
   padding: 12px 16px;
   border-radius: 8px;
   border: none;
-  background-color: #1f275b;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
   transition: 0.2s;
 }
 
 button:hover {
-  background-color: #3944a3;
+  background-color: #dbdbdb;
+}
+
+.reg-buttons {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 18px auto 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1f275b;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.reg-buttons:hover {
+    background-color: rgb(124, 138, 151);
+    border: none;
 }
 
 .error-message {
@@ -77,7 +95,6 @@ button:hover {
 }
 
 @media (max-width: 375px) {
-
   .sidebar {
     width: 100%;
     height: auto;

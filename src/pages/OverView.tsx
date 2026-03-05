@@ -117,7 +117,7 @@ for (let i = 0; i < 7; i++) {
 
 return (
 <>
-    <div className="card">
+    <div className="overview-card">
           <div className="week-header">
         <button onClick={() => changeWeek(-1)}> ⟵ </button>
         <button onClick={() => changeWeek(1)}> ⟶ </button>
@@ -141,9 +141,9 @@ return (
     <div key={index} className="week-row">
       <span className="week-date">{day.toLocaleDateString("sv-SE")}</span>
 
-      <span className="week-hours">
-        {total.h}h {total.m}min
-      </span>
+    <span className="week-hours">
+      {hasItems ? `${total.h}h ${total.m}min` : "-"}
+    </span>
 
   {hasItems ? (
     <button onClick={() => navigate(`/edit/${dayISO}`)}>

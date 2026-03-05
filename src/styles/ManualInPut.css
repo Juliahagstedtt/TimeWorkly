@@ -5,7 +5,7 @@
     font-weight: 600;
 }
 
-.reg-buttons {
+/* .reg-buttons {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -17,10 +17,24 @@
     color: #fff;
     font-weight: 500;
     cursor: pointer;
+} */
+
+.card label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: #434343;
 }
 
-.error-message {
-  color: red;
-  margin-top: 10px;
-  font-size: 14px;
+.card input,
+.card select {
+  width: 100%;
+  max-width: 420px;
+  display: block;
+  margin: 0 auto;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #cfd6e4;
+  background: #fff;
+  color: #4f4f4f;
 }

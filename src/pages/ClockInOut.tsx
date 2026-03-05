@@ -104,9 +104,9 @@ const handleClockIn = async () => {
 
       <div className="clock-buttons">
         {!In ? (
-          <button className="In" onClick={handleClockIn}>Stämpla In</button>
+          <button className="stamp-button" onClick={handleClockIn}>Stämpla In</button>
         ) : (
-          <button className="Out" onClick={handleClockOut}>Stämpla Ut</button>
+          <button className="stamp-button" onClick={handleClockOut}>Stämpla Ut</button>
         )}
       </div>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
