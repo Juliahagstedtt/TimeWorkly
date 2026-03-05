@@ -33,7 +33,6 @@ html, body {
   margin-left: 200px;
   padding: 40px;
   text-align: center;
-  justify-content: center;
 }
 
 .card {
@@ -46,8 +45,7 @@ html, body {
   margin: 40px auto;
 }
 
-input,
-textarea {
+input, textarea, select {
   width: 100%;
   padding: 12px;
   border-radius: 8px;

@@ -12,7 +12,11 @@
   color: #434343;
 }
 
-.card input,
+.card select {
+  appearance: none;
+}
+
+/* .card input,
 .card select {
   width: 100%;
   max-width: 420px;
@@ -23,7 +27,7 @@
   border: 1px solid #cfd6e4;
   background: #fff;
   color: #4f4f4f;
-}
+} */
 
 @media (max-width: 375px) {
 
