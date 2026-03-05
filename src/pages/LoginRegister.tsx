@@ -27,7 +27,7 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('http://localhost:10000/register', {
+      const res = await fetch('/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -52,7 +52,7 @@ function LoginRegister() {
     setErrorMessage("");
 
     try {
-      const res = await fetch('http://localhost:10000/login', {
+      const res = await fetch('/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

@@ -79,7 +79,7 @@ setErrorMessage("");
 const startISO = `${date}T${start}:00.000Z`;
 const endISO = `${date}T${end}:00.000Z`;
 
-const res = await fetch(`http://localhost:10000/time/${selectedId}`, {
+const res = await fetch(`/time/${selectedId}`, {
   method: "PUT",
   headers: {
     "Content-Type": "application/json",
@@ -93,10 +93,8 @@ if (!res.ok) {
   setErrorMessage(data?.error ?? "Kunde inte spara ändringen.");
   return;
 }
-
 navigate("/overview");
 
-  navigate("/overview");
 };
 
   return (

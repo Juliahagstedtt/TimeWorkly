@@ -36,7 +36,7 @@ function ClockInOut() {
     }
 
     fetchTimeData()
-  }, [])
+}, [token])
 
 
 const handleClockIn = async () => {
@@ -71,7 +71,7 @@ const handleClockIn = async () => {
   const handleClockOut = async () => {
   setErrorMessage(null);
   try {
-    const res = await fetch(`http://localhost:10000/time/clock-out`, {
+    const res = await fetch(`/time/clock-out`, {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json',
