@@ -29,8 +29,7 @@
   color: #4f4f4f;
 } */
 
-@media (max-width: 375px) {
-
+@media (max-width: 768px) {
   .card input,
   .card select {
     max-width: 100%;

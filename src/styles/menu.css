@@ -39,7 +39,7 @@
 .manual-button:hover { background: rgba(32, 37, 75, 0.9); }
 .overview-button:hover { background: #87657e; }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .menu {
     padding: 16px;
     margin: 20px auto;

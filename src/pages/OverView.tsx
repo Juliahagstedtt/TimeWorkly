@@ -94,10 +94,9 @@ for (let i = 0; i < 7; i++) {
 
         const data = await res.json();
         const items: TimeItem[] = data.data;
-        console.log("ALLA ITEMS:", items);
 
-      const filtered = getWeekData(items);
-      setWeekItems(filtered);
+        const filtered = getWeekData(items);
+        setWeekItems(filtered);
 
       
         const clockItems = filtered.filter(i => i.inputType === "clock-in");

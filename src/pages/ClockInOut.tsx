@@ -7,7 +7,6 @@ function ClockInOut() {
   const [clockInTime, setClockInTime] = useState<string | null>(null);
   const [clockOutTime, setClockOutTime] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [comment, setComment] = useState("");
 
   const token = localStorage.getItem("jwt")
 
@@ -47,8 +46,7 @@ const handleClockIn = async () => {
       headers: { 
         'Content-Type': 'application/json', 
         'Authorization': `Bearer ${token}` 
-      },
-      body: JSON.stringify({ comment }) 
+      }
     });
 
     const data = await res.json();
@@ -61,7 +59,6 @@ const handleClockIn = async () => {
     setIn(true);
     setClockInTime(new Date(data.data.startTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
     setClockOutTime(null);
-    setComment(""); 
 
   } catch {
     setErrorMessage("Något gick fel.");
@@ -76,11 +73,8 @@ const handleClockIn = async () => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ comment }) 
+      }
     });
-    setComment("");
-
     const data = await res.json();
     if (!res.ok) {
       setErrorMessage(data.error);
