@@ -30,11 +30,6 @@
     justify-content: center;
 }
 
-.reg-container p {
-    color: black;
-}
-
-
 @media (max-width: 768px) {
   .reg-container {
     margin-left: auto;
